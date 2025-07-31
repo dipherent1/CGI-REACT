@@ -1,0 +1,39 @@
+/* src/pages/PortfolioPage.module.css */
+.portfolioGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.portfolioItem {
+  background-color: #333333;
+  border-radius: 8px;
+  overflow: hidden; /* Ensures the image corners are rounded */
+  flex-basis: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolioItem img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Prevents images from stretching */
+}
+
+.portfolioItem h3,
+.portfolioItem p {
+  padding: 0 1rem;
+  margin: 0.5rem 0;
+}
+
+.portfolioItem h3 {
+  margin-top: 1rem;
+}
+
+.portfolioItem p {
+  color: #AAAAAA;
+  padding-bottom: 1rem;
+  flex-grow: 1;
+}

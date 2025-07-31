@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Project Alpha",
+    "imageSrc": "https://placehold.co/400x300/333/FFF?text=Project+Alfa",
+    "altText": "3D model of a sci-fi helmet"
+  },
+  {
+    "id": 2,
+    "title": "Project Beta",
+    "imageSrc": "https://placehold.co/400x300/333/FFF?text=Project+Beta",
+    "altText": "Concept art for a fantasy character"
+  },
+  {
+    "id": 3,
+    "title": "Project Gamma",
+    "imageSrc": "https://placehold.co/400x300/333/FFF?text=Project+Gamma",
+    "altText": "2D animated short title card"
+  }
+]
