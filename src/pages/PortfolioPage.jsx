@@ -13,7 +13,7 @@ function PortfolioPage() {
     // We define an async function inside the effect
     const fetchProjects = async () => {
       try {
-        const response = await fetch('/projects.json'); // Fetch from the public folder
+        const response = await fetch('http://localhost:8080/api/projects'); // Fetch from the public folder
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
