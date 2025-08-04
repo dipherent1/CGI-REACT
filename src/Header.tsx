@@ -1,26 +1,28 @@
-// src/Header.jsx
+// src/Header.tsx
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { ThemeContext } from './context/ThemeContext.jsx';
-import { AuthContext } from './context/AuthContext.jsx'; // 1. Import AuthContext
+import { Link, useNavigate } from 'react-router-dom'; // 1. Import useNavigate hook
+
+// 2. No longer need to import useContext directly
+import { useAuth } from './context/AuthContext'; // 3. Correct the path and remove .js
+import { useTheme } from './context/ThemeContext'; // 4. Correct the path
 
 function Header() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const { user } = useContext(AuthContext); // 2. Consume AuthContext to get user state
+  const { theme, toggleTheme } = useTheme();
+  const { user, logOut } = useAuth();
+  
+  // 5. Initialize the navigate function
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    logOut(); // Call the context function
-    navigate('/login'); // Redirect to login page after logout
+    logOut();
+    navigate('/login');
   };
+
   return (
     <header className={styles.header}>
-      {/* The main logo/link can stay the same */}
       <Link to="/" className={styles.logoLink}>
         <h1>CGI AASTU</h1>
       </Link>
-      
-      {/* We can remove the old static <p> tag to make room */}
-      {/* <p>We bring ideas to life...</p> */}
 
       <nav className={styles.nav}>
         <Link to="/">Home</Link>
@@ -29,11 +31,9 @@ function Header() {
       </nav>
       
       <div className={styles.headerActions}>
-        {/* 3. Use conditional rendering for auth links */}
         {user ? (
           <>
-            <span>Welcome, {user.username}</span>
-            {/* We will add a logout button here later */}
+            <span>Welcome, {user}</span>
             <button onClick={handleLogout} className={styles.logoutButton}>
               Logout
             </button>
@@ -41,7 +41,7 @@ function Header() {
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link> {/* THE MISSING LINK! */}
+            <Link to="/register">Register</Link>
           </>
         )}
         <button onClick={toggleTheme} className={styles.themeToggle}>

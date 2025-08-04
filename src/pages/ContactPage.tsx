@@ -1,19 +1,19 @@
 // src/pages/ContactPage.jsx
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './ContactPage.module.css';
 
 function ContactPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [feedbackMessage, setFeedbackMessage] = useState<string>('');
 
   // 1. Add state for tracking submission
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // 2. Mark the function as ASYNC
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
     // 3. Set submitting state to true
     setIsSubmitting(true);
@@ -54,9 +54,14 @@ function ContactPage() {
         setFeedbackMessage('');
       }, 5000); // 5 seconds
 
-    } catch (err) {
+    } catch (err: unknown) {
       // --- Error Case ---
-      setFeedbackMessage(err.message);
+      if (err instanceof Error) {
+        setFeedbackMessage(err.message);
+      } else {
+        setFeedbackMessage('An unknown error occurred.');
+        console.error('Unexpected error:', err);
+      }
     } finally {
       // 4. This block runs whether the try or catch block ran
       setIsSubmitting(false);
@@ -91,7 +96,7 @@ function ContactPage() {
           <label htmlFor="message">Message</label>
           <textarea
             id="message"
-            rows="5"
+            rows={5}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />

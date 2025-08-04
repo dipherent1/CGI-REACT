@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import Header from './Header.jsx'
-import Footer from './Footer.jsx'
-import HomePage from './pages/HomePage.jsx'
-import ContactPage from './pages/ContactPage.jsx'
-import PortfolioPage from './pages/PortfolioPage.jsx'
+import Header from './Header.js'
+import Footer from './Footer.js'
+import HomePage from './pages/HomePage.js'
+import ContactPage from './pages/ContactPage.js'
+import PortfolioPage from './pages/PortfolioPage.js'
 import {Routes, Route} from 'react-router-dom'
-import NotFoundPage from './pages/NotFoundPage.jsx'
-import { ThemeContext,ThemeProvider } from './context/ThemeContext.jsx'
-import { useContext } from 'react'; // 1. Import useContext
-import { AuthContext,AuthProvider } from './context/AuthContext.jsx'
-import RegisterPage from './pages/RegisterPage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
-import PrivateRoute from './component/PrivateRoute.jsx'
+import NotFoundPage from './pages/NotFoundPage.js'
+import { ThemeProvider } from './context/ThemeContext.js'
+import { AuthProvider } from './context/AuthContext.tsx'
+import RegisterPage from './pages/RegisterPage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
+import PrivateRoute from './component/PrivateRoute.tsx'
+import { useTheme } from './context/ThemeContext.tsx'
+
+
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
 }
 
 function AppContent() {
-  const { theme } = useContext(ThemeContext); // 4. Consume the context
+  const { theme } = useTheme(); // 4. Consume the context
 
   return (
     <div className={`app-container ${theme}`}>

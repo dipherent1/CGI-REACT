@@ -1,10 +1,13 @@
 // src/components/PrivateRoute.jsx
-import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 function PrivateRoute() {
-  const { token } = useContext(AuthContext);
+  const { token, isLoading } = useAuth(); // Use the custom hook to access auth state
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Show a loading state while checking auth
+  }
 
   // If there's a token, render the child route.
   // If not, redirect to the login page.

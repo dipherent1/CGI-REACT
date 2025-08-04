@@ -1,25 +1,28 @@
-// src/pages/LoginPage.jsx
-import { useState, useContext } from 'react';
+// src/pages/LoginPage.tsx
+import { useState, FormEvent } from 'react'; // 1. Import FormEvent for typing the event
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext.jsx';
-import styles from './ContactPage.module.css'; // Reuse form styles
+import styles from './ContactPage.module.css';
+import { useAuth } from '../context/AuthContext'; // 2. Correct the import path if needed
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // 3. Add types to your state variables
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null); // Can be a string or null
 
-  const { loginAction } = useContext(AuthContext); // Get the login function from context
-  const navigate = useNavigate(); // Get the navigate function for redirection
+  // 4. CALL the hook to get the returned value
+  const { loginAction } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  // 5. Add a type to the form event
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError(null);
 
     try {
-      await loginAction({ username, password }); // Call the context login function
-      navigate('/'); // Redirect to homepage on successful login
-    } catch (err) {
+      await loginAction({ username, password });
+      navigate('/');
+    } catch (err: any) { // Type the error to 'any' for now
       setError(err.message || 'Failed to log in. Please check your credentials.');
     }
   };
@@ -28,7 +31,7 @@ function LoginPage() {
     <main>
       <h1>Login</h1>
       <form onSubmit={handleLogin} className={styles.contactForm}>
-        {/* Username and Password inputs are similar to RegisterPage */}
+        {/* Username input */}
         <div className={styles.formGroup}>
           <label htmlFor="username">Username</label>
           <input
@@ -38,6 +41,7 @@ function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
+        {/* Password input */}
         <div className={styles.formGroup}>
           <label htmlFor="password">Password</label>
           <input
@@ -47,6 +51,7 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {/* Add a specific error class for styling */}
         {error && <p className={styles.error}>{error}</p>}
         <button type="submit">Login</button>
       </form>
