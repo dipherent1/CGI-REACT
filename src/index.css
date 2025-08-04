@@ -1,25 +1,4 @@
 /* src/index.css */
-body {
-  margin: 0;
-  background-color: #222222;
-  color: #DDDDDD;
-  font-family: sans-serif;
-}
-
-a {
-  color: #FFD700;
-}
-
-body {
-  background-color: #222222;
-  color: #DDDDDD;
-}
-
-/* Light Theme */
-.light {
-  background-color: #F5F5F5;
-  color: #222222;
-}
-.light a {
-  color: #0056b3;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
